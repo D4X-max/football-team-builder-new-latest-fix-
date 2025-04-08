@@ -1,0 +1,1152 @@
+/* General Styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9; /* Light gray background */
+    color: #333; /* Dark text color */
+}
+
+/* Header Styling */
+header {
+    text-align: center;
+    background: rgb(2,0,36);
+background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(121,9,90,1) 0%, rgba(0,212,255,1) 100%);/* Blue header */
+    color: rgb(37, 9, 75);
+    padding: 20px;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    margin: 0;
+}
+
+header p {
+    font-size: 1.2rem;
+    margin-top: 10px;
+}
+
+header a {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 10px 20px;
+    background-color: #be0930; /* Darker blue for buttons */
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+header a:hover {
+    background-color: #003d80; /* Even darker blue on hover */
+}
+
+/* Section Styling */
+.section {
+    margin: 20px auto;
+    padding: 20px;
+    max-width: 800px;
+    background-color: white; /* White card-like sections */
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.section h2 {
+    text-align: center;
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+}
+
+/* Form Styling */
+form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px; /* Space between form elements */
+}
+
+form input,
+form select,
+form button {
+    width: calc(50% - 15px); /* Two columns layout for inputs */
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd; /* Light gray border */
+}
+
+form button {
+    width: calc(100% - 15px); /* Full width button */
+    background-color: #28a745; /* Green button */
+    color: white;
+    cursor: pointer;
+}
+
+form button:hover {
+    background-color: #218838; /* Darker green on hover */
+}
+
+/* Football Field Styling */
+.football-field {
+    position: relative;
+    width: 100%;
+    max-width: 612px; /* Limit field width */
+    height: 467px; /* Fixed height for the field */
+    margin: auto; /* Center the field horizontally */
+    background-image: url('./images/field.png'); /* Path to your football field image */
+    background-size: cover; /* Ensure the image covers the entire field */
+    background-position: center; /* Center the image */
+    border-radius: 10px; /* Rounded corners for the field */
+    border: 5px solid white; /* Field boundary line */
+}
+
+
+/* Center Circle */
+.center-circle {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 2px solid white; /* Circle line color */
+    top: calc(50% - 50px);
+    left: calc(50% - 50px);
+}
+
+/* Goal Areas (Left and Right) */
+.goal-area-left,
+.goal-area-right {
+    position: absolute;
+}
+
+.goal-area-left {
+    width: 120px;
+    height: 60px;
+    border-radius: 5px; /* Slightly rounded corners for goal area */
+    border: 2px solid white; /* Goal box line color */
+    
+	left:-10%;
+}
+
+/* Player Card Styling */
+.player-card {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 15px;
+    background-color: white;
+}
+
+.player-card p {
+    margin: 5px 0;
+}
+
+/* Delete Button Styling */
+.delete-button {
+    background-color: #dc3545; /* Red color for delete */
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.delete-button:hover {
+    background-color: #c82333; /* Darker red on hover */
+}
+
+/* Football Field Styling */
+.football-field {
+    position: relative;
+    width: 100%;
+    max-width: 400px; /* Limit field width */
+    height: 600px; /* Fixed height for the field */
+    margin: auto; /* Center the field horizontally */
+    background-color: #4caf50; /* Green grass color */
+    border-radius: 10px; /* Rounded corners for the field */
+    border: 5px solid white; /* Field boundary line */
+}
+
+/* Player Markers */
+.player-marker {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background-color: #007bff; /* Blue color for players */
+    color:white;
+	text-align:center;}
+
+/* Player Card Styling */
+.player-card {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 15px;
+    background-color: white; /* White background for cards */
+}
+
+.player-card p {
+    margin: 5px 0; /* Space between text lines */
+}
+
+/* Delete Button Styling */
+.delete-button {
+    background-color: #dc3545; /* Red color for delete button */
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer; /* Pointer cursor on hover */
+}
+
+.delete-button:hover {
+    background-color: #c82333; /* Darker red on hover */
+}
+
+/* General Styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9; /* Light gray background */
+}
+
+/* Login Container */
+.login-container {
+    max-width: 400px;
+    margin: 100px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.login-container h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.input-group {
+    margin-bottom: 15px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.input-group input {
+    width: calc(100% - 20px);
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+.login-button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.login-button:hover {
+    background-color: #0056b3;
+}
+
+/* Error Message */
+.error-message {
+    color: red;
+    text-align: center;
+}
+
+/* Edit Button Styling */
+.edit-button {
+    background-color: #007bff; /* Blue color for edit button */
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+}
+
+.edit-button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Edit Form Styling */
+#editFormContainer {
+    margin-top: 20px;
+}
+
+#editForm input,
+#editForm select,
+#editForm button {
+    margin-bottom: 10px;
+}
+
+#editForm button {
+   cursor:pointer;}
+
+/* Highlight Selected Players */
+.player-marker.selected {
+    background-color: #28a745; /* Green color for selected players */
+}
+
+/* Background Styling for Login Page */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-image: url('./images/ground.avif'); /* Path to your background image */
+    background-size: cover; /* Ensure the image covers the entire page */
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Prevent repetition of the image */
+}
+
+/* Centering the login container */
+.container {
+    max-width: 400px;
+    margin: auto;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+}
+
+/* Login Page Background */
+.login-page {
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(45deg, #6a11cb, #2575fc); /* Gradient background */
+    background-size: 400% 400%;
+    animation: gradientAnimation 10s ease infinite; /* Moving gradient */
+}
+
+/* Login Container Styling */
+.login-container {
+    background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white */
+    padding: 40px; /* Larger padding for spacious design */
+    width: 400px; /* Wider form for better usability */
+    border-radius: 15px; /* Rounded corners */
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+    text-align: center; /* Center-align text inside the container */
+}
+
+.login-container h2 {
+    font-size: 2rem; /* Larger heading size */
+    color: #333; /* Dark text color */
+    margin-bottom: 10px; /* Space below heading */
+}
+
+.login-container p {
+    font-size: 1rem; /* Normal paragraph size */
+    color: #666; /* Gray text color */
+}
+
+/* Form Styling */
+.login-container form {
+    display: flex;
+    flex-direction: column;
+}
+
+.login-container input {
+    margin-bottom: 20px; /* Space between inputs */
+    padding: 15px; /* Larger padding for inputs */
+    border-radius: 10px; /* Rounded corners for inputs */
+    border: none; /* Remove borders */
+    box-shadow: inset 0px 4px 8px rgba(0, 0, 0, 0.1); /* Inner shadow for depth */
+}
+
+.login-container input::placeholder {
+    color:#333;}
+
+
+
+/* Gradient Animation Keyframes */
+@keyframes gradientAnimation {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Modal Styling */
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px; /* Wider modal */
+    max-height: 80%; /* Limit height */
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    overflow-y: auto; /* Enable vertical scrolling */
+}
+
+.modal-content h3 {
+    margin-bottom: 10px;
+}
+
+#playerList {
+    list-style-type: none; /* Remove default list styling */
+    padding: 0;
+}
+
+#playerList li {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+#playerList li:hover {
+    background-color: #f4f4f9; /* Light hover effect */
+}
+
+
+button {
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+}
+
+/* Save Team Button */
+.save-team-button {
+    margin-top: 20px;
+    padding: 15px 30px;
+    background-color: #28a745; /* Green */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.save-team-button:hover {
+    background-color: #218838; /* Darker green */
+}
+
+/* Saved Teams List */
+.team-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.team-list li {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.team-list li:last-child {
+    border-bottom: none;
+}
+
+/* Saved Teams Container */
+#savedTeamsContainer {
+    margin-top: 20px;
+}
+
+/* Saved Team Styling */
+.saved-team {
+    margin-bottom: 20px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+}
+
+.saved-team h3 {
+    margin-bottom: 10px;
+}
+
+/* Team List Styling */
+.team-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.team-list li {
+    padding: 5px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.team-list li:last-child {
+    border-bottom: none;
+}
+
+/* Saved Teams Container */
+#savedTeamsContainer {
+    margin-top: 20px;
+}             -----------------------------------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------------------------
+
+/* Saved Team Styling */
+.saved-team {
+    margin-bottom: 20px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+}
+
+.saved-team h3 {
+    margin-bottom: 10px;
+}
+
+/* Team List Styling */
+.team-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.team-list li {
+    padding: 5px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.team-list li:last-child {
+    border-bottom: none;
+}
+
+/* Remove Team Button */
+.remove-team-button {
+    margin-top: 10px;
+    padding: 10px 15px;
+    background-color: #dc3545; /* Red color */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.remove-team-button:hover {
+    background-color: #c82333; /* Darker red on hover */
+}
+
+/* Substitute Bench Styling */
+.substitute-bench {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #f9f9f9; /* Light gray background */
+    border: 1px solid #ddd;
+    border-radius: 10px;
+}
+
+.substitute-bench h3 {
+    margin-bottom: 10px;
+}
+
+.substitute-button {
+    padding: 10px 15px;
+    background-color: #007bff; /* Blue color */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.substitute-button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Profile Card Styling */
+.profile-card .card {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    max-width: 400px;
+    margin: auto;
+    text-align: center;
+}
+
+.profile-card .card h1 {
+    font-size: 24px;
+}
+
+.profile-card .card p {
+    font-size: 18px;
+}
+
+/* View Profile Button */
+.view-profile-button {
+    padding: 5px 10px;
+    background-color: #cc5302; /* Green color */
+    color: white;
+    border-radius: 10px;
+    border: none;
+    font-size: 9px;
+    cursor: pointer;
+}
+
+.view-profile-button:hover {
+    background-color: red; /* Darker green on hover */
+}
+
+/* profile styling*/
+/* General Styling */
+body {
+    font-family: Arial, sans-serif;
+}
+
+.header {
+    text-align: center;
+    background-color: #007bff;
+    color: white;
+    padding: 20px;
+}
+
+.section {
+    margin: 20px auto;
+    padding: 20px;
+    max-width: 600px;
+}
+
+/* Profile Card Styling */
+.profile-card {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    max-width: 400px;
+    margin: auto;
+    text-align: center;
+    background-color: white;
+    border-radius: 10px;
+}
+
+.profile-card h1,
+.profile-card p {
+    margin: 10px 0;
+}
+
+/* Animation for Flying Text */
+.animated-text {
+    opacity: 0; /* Start as invisible */
+    transform: translateX(-100%); /* Start off-screen */
+    animation: flyInFromLeft 1s ease-out forwards; /* Trigger animation */
+}
+
+@keyframes flyInFromLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Button Styling */
+.back-button {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.back-button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Profile Page Background */
+.profile-page {
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(45deg, #12c2e9, #c471ed, #f64f59); /* Gradient colors */
+    background-size: 400% 400%; /* Expand gradient for animation */
+    animation: gradientAnimation 10s ease infinite; /* Animate gradient */
+}
+
+/* Gradient Animation Keyframes */
+@keyframes gradientAnimation {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+.dream-team-button {
+    display: inline-block;
+    margin: 10px;
+    padding: 10px 20px;
+    background-color: #d8150e; /* Green */
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.dream-team-button:hover {
+    background-color: #218838; /* Darker green on hover */
+}
+
+/* Player List and Dream Team Containers */
+#playerListContainer,
+#dreamTeamContainer {
+    margin-top: 20px;
+}
+
+#playerList,
+#dreamTeam {
+    list-style-type: none;
+    padding: 0;
+}
+
+#playerList li,
+#dreamTeam li {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+#playerList li img {
+    margin-right: 10px;
+}
+
+button {
+    margin-left: 10px;
+    padding: 5px 10px;
+    background-color: #007bff; /* Blue */
+    color: white;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: #0056b3; /* Darker blue */
+}
+
+
+/* Leadership Buttons */
+.leadership-buttons {
+    margin-top: 20px;
+}
+
+.leadership-buttons button {
+    margin-right: 10px;
+    padding: 10px 15px;
+    background-color: #007bff; /* Blue */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.leadership-buttons button:hover {
+    background-color: #0056b3; /* Darker blue */
+}
+
+/* Leadership Display */
+.leadership-display {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #f9f9f9; /* Light gray background */
+    border: 1px solid #ddd;
+    border-radius: 10px;
+}
+
+/* Modal Styling */
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+}
+
+.modal-content h3 {
+    margin-bottom: 10px;
+}
+
+#playerSelectionList li {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+#playerSelectionList li:hover {
+    background-color: #f4f4f9; /* Light hover effect */
+}
+
+/* Swap Button Styling */
+.swap-buttons {
+    margin-top: 20px;
+}
+
+.swap-buttons button {
+    padding: 10px 15px;
+    background-color: #007bff; /* Blue */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.swap-buttons button:hover {
+    background-color: #0056b3; /* Darker blue */
+}
+
+/* Modal Styling */
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+}
+
+.modal-content h3 {
+    margin-bottom: 10px;
+}
+
+#swapPlayerList li {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+#swapPlayerList li:hover {
+    background-color: #f4f4f9; /* Light hover effect */
+}
+
+/* Filter Section Styling */
+.filter-section {
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #f9f9f9; /* Light gray background */
+    border: 1px solid #ddd;
+    border-radius: 10px;
+}
+
+.filter-section h3 {
+    margin-bottom: 10px;
+}
+
+.filter-section div {
+    margin-bottom: 10px;
+}
+
+.filter-section label {
+    margin-right: 10px;
+}
+
+.filter-section input {
+    padding: 5px;
+    width: 200px;
+}
+
+.filter-section button {
+    padding: 10px 15px;
+    background-color: #007bff; /* Blue */
+    color: white;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+.filter-section button:hover {
+    background-color: #0056b3; /* Darker blue */
+}
+@keyframes flyInFromLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes gradientAnimation {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* General Styling */
+body {
+    font-family: Arial, sans-serif;
+}
+
+.header {
+    text-align: center;
+    background-color: #007bff;
+    color: white;
+    padding: 20px;
+}
+
+.section {
+    margin: 20px auto;
+    padding: 20px;
+    max-width: 800px;
+}
+
+/* Form Styling */
+.form input,
+.form button {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+
+.form button {
+    background-color: #28a745; /* Green */
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+.form button:hover {
+    background-color: #218838; /* Darker green */
+}
+
+/* Player Stats List Styling */
+.player-stats-list {
+    display: flex;
+    flex-wrap: wrap; /* Allow cards to wrap to the next row */
+    gap: 20px; /* Space between cards */
+}
+
+/* Player Card Styling */
+.player-card {
+    flex: 1 1 calc(33.333% - 20px); /* Responsive card size (3 cards per row) */
+    background-color: #f9f9f9; /* Light gray background */
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+}
+
+.player-card h3 {
+    margin-bottom: 10px;
+}
+
+.player-card input {
+    width: calc(100% - 20px);
+    margin-bottom: 10px;
+}
+
+/* Save Stats Button */
+.save-stats-button {
+    display: block;
+    width: auto;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #007bff; /* Blue */
+    color: white;
+    border-radius: 5px;
+}
+
+.save-stats-button:hover {
+    background-color: #0056b3; /* Darker blue */
+}
+
+.match-stats-view-button {
+    display: inline-block;
+    margin: 10px;
+    padding: 10px 20px;
+    background-color: #17a2b8; /* Teal */
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.match-stats-view-button:hover {
+    background-color: #138496; /* Darker teal */
+}
+/* Futuristic Background */
+.futuristic-bg {
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364); /* Dark gradient */
+    color: rgb(24, 15, 15);
+    font-family: 'Roboto', sans-serif;
+    min-height: 100vh;
+    margin: 0;
+}
+
+/* Futuristic Header */
+.futuristic-header {
+    text-align: center;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.1); /* Transparent white */
+    backdrop-filter: blur(10px); /* Glass effect */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.futuristic-header h1 {
+    font-size: 36px;
+    color: #00d4ff; /* Neon blue */
+}
+
+.futuristic-header p {
+    font-size: 18px;
+}
+
+/* Futuristic Footer */
+.futuristic-footer {
+    text-align: center;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Futuristic Container */
+.futuristic-container {
+    padding: 20px;
+}
+
+/* Match Card Styling */
+.match-card {
+    margin-bottom: 20px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.1); /* Transparent white */
+    border-radius: 15px;
+    box-shadow: 0px 4px 15px rgba(0, 212, 255, 0.5); /* Neon glow effect */
+}
+
+.match-card h3 {
+    font-size: 24px;
+    color: #00d4ff; /* Neon blue */
+}
+
+.player-stats-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.player-stats-list li {
+    padding: 10px;
+    margin-bottom: 5px;
+    background-color: rgba(255, 255, 255, 0.05); /* Slightly darker background */
+    border-radius: 10px;
+}
+
+.player-stats-list li:hover {
+    background-color: rgba(255, 255, 255, 0.15); /* Lighter hover effect */
+}
+
+/* Back Button Styling */
+.back-button {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: transparent; /* Transparent button */
+    color: #00d4ff; /* Neon blue text */
+    border-radius: 5px;
+    border: 2px solid #00d4ff; /* Neon border */
+}
+
+.back-button:hover {
+    background-color: #00d4ff; /* Neon blue background on hover */
+    color: black; /* Black text on hover */
+}
+
+/* Modern Header Styling */
+.modern-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364); /* Dark gradient */
+    color: white;
+}
+
+.header-content {
+    max-width: 50%;
+}
+
+.header-content h1 {
+    font-size: 48px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.header-content p {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.cta-buttons {
+    display: flex;
+    gap: 10px; /* Space between buttons */
+}
+
+.cta-button {
+    padding: 10px 20px;
+    background-color: #00d4ff; /* Neon blue */
+    color: black;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth hover effect */
+}
+
+.cta-button:hover {
+    background-color: #007bff; /* Darker blue */
+    transform: scale(1.05); /* Slightly enlarge on hover */
+}
+
+.header-image img {
+    max-width: 90%;
+    border-radius: 50px; /* Rounded corners for the image */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .modern-header {
+        flex-direction: column; /* Stack content vertically on smaller screens */
+        text-align: center;
+    }
+
+    .header-content {
+        max-width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .header-image img {
+        width: 100%;
+        height: auto;
+        border-radius: 0; /* Remove rounded corners on smaller screens */
+    }
+}
+.cta-button:hover {
+    background-color: #007bff; /* Darker blue */
+    box-shadow: 0px 4px 15px rgba(0, 212, 255, 0.5); /* Neon glow effect */
+}
+.header-image img:hover {
+    transform: scale(1.05); /* Slightly enlarge the image on hover */
+}
+
+
+
+
+
+
+
+

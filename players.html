@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Players</title>
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <h1>⚽ All Players</h1>
+        <p>View, edit, or delete your football team players.</p>
+        <a href="./index.html" class="back-button">← Back to Team Builder</a>
+    </header>
+
+    <!-- Main Content -->
+    <main class="section">
+        <!-- Search Bar -->
+        <input type="text" id="searchBar" placeholder="Search by name or position..." onkeyup="searchPlayers()" class="search-bar">
+
+         <!-- Filter Section -->
+    <div id="filterSection" class="filter-section">
+        <h3>Filter Players</h3>
+        <div>
+            <label for="filterNationality">Nationality:</label>
+            <input type="text" id="filterNationality" placeholder="Enter nationality">
+        </div>
+        <div>
+            <label for="filterMinHeight">Min Height (cm):</label>
+            <input type="number" id="filterMinHeight" placeholder="Enter min height">
+        </div>
+        <div>
+            <label for="filterMaxHeight">Max Height (cm):</label>
+            <input type="number" id="filterMaxHeight" placeholder="Enter max height">
+        </div>
+        <div>
+            <label for="filterMinWeight">Min Weight (kg):</label>
+            <input type="number" id="filterMinWeight" placeholder="Enter min weight">
+        </div>
+        <div>
+            <label for="filterMaxWeight">Max Weight (kg):</label>
+            <input type="number" id="filterMaxWeight" placeholder="Enter max weight">
+        </div>
+        <button id="applyFiltersButton">Apply Filters</button>
+    </div>
+
+        <!-- Players List -->
+        <div id="playersList"></div>
+
+
+        <!-- Edit Form -->
+        <div id="editFormContainer" style="display: none;">
+            <h3>Edit Player</h3>
+            <form id="editForm">
+                <input type="text" id="nameEdit" placeholder="Player Name" required>
+                <select id="positionEdit" required>
+                    <option value="" disabled selected>Select Position</option>
+                    <option value="Forward">Forward</option>
+                    <option value="Midfielder">Midfielder</option>
+                    <option value="Defender">Defender</option>
+                    <option value="Goalkeeper">Goalkeeper</option>
+                </select>
+                <input type="number" id="ageEdit" placeholder="Age" required>
+                <input type="number" id="jerseyEdit" placeholder="Jersey Number" required>
+                <input type="text" id="nationalityEdit" placeholder="Nationality">
+        <input type="number" id="heightEdit" placeholder="Height (in cm)">
+        <input type="number" id="weightEdit" placeholder="Weight (in kg)">
+        <input type="text" id="skillsEdit" placeholder="Skills (comma-separated)">
+                <button type="button" id="saveEditButton">Save Changes</button>
+                <button type="button" onclick="document.getElementById('editFormContainer').style.display='none'">Cancel</button>
+            </form>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        ⚽ Football Team Builder | Made by Dhruv Srijit and Swapnil Nath
+    </footer>
+
+    <!-- Link JavaScript -->
+    <script src="./players.js"></script>
+
+</body>
+</html>
+
+
+
+
+
+
+

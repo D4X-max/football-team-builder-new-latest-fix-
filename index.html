@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Football Team Builder</title>
+    <link rel="stylesheet" href="./styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="modern-header">
+        <div class="header-content">
+            <h1>⚽ Football Team Builder</h1>
+            <p>Create and manage your dream football team with ease!</p>
+            <div class="cta-buttons">
+                <a href="./players.html" class="cta-button">View All Players</a>
+                <a href="./team.html" class="cta-button">View Team</a>
+                <a href="./dream11.html" class="cta-button">Dream Team</a>
+                <a href="./match-stats.html" class="cta-button">Match Stats</a>
+                <a href="./match-stats-view.html" class="cta-button">View Match Stats</a>
+            </div>
+        </div>
+        <div class="header-image">
+            <img src="./images/players.jpg" alt="Football Header Image">
+        </div>
+    </header>
+    
+    
+
+    <!-- Main Content -->
+    <main>
+        <!-- Add Player Section -->
+        <section class="section">
+            <h2>Add New Player</h2>
+            <form id="addPlayerForm" class="form">
+                <input type="text" id="name" placeholder="Player Name" required>
+                <select id="position" required>
+                    <option value="" disabled selected>Select Position</option>
+                    <option value="Forward">Forward</option>
+                    <option value="Midfielder">Midfielder</option>
+                    <option value="Defender">Defender</option>
+                    <option value="Goalkeeper">Goalkeeper</option>
+                </select>
+                <input type="number" id="age" placeholder="Age" required>
+                <input type="number" id="jersey_number" placeholder="Jersey Number" required>
+                <input type="number" id="height" placeholder="Height (cm)" required>
+                <input type="number" id="weight" placeholder="Weight (kg)" required>
+                <input type="text" id="nationality" placeholder="Nationality" required>
+                <textarea id="skills" placeholder="Skills (e.g., Dribbling, Passing)" required></textarea>
+                <button type="submit">Add Player</button>
+            </form>
+            
+        </section>
+
+        <!-- Football Field Section -->
+        <section class="section">
+            <h2>Football Field</h2>
+            <select id="formation" onchange="applyFormation()" class="formation-select">
+                <option value="" disabled selected>Select Formation</option>
+                <option value="442">4-4-2 Formation</option>
+                <option value="433">4-3-3 Formation</option>
+                <option value="352">3-5-2 Formation</option>
+            </select>
+            <div id="footballField" class="football-field">
+                <div id="player1" class="player-marker">Player 1</div>
+                <div id="player2" class="player-marker">Player 2</div>
+            </div>
+
+            
+            
+            <!-- Save Team Button -->
+<section class="section">
+    <button id="saveTeamButton" class="save-team-button">Save Team</button>
+     <!-- Captain and Vice-Captain Buttons -->
+     <div class="leadership-buttons">
+        <button id="assignCaptainButton" onclick="showPlayerList('captain')">Assign Captain</button>
+        <button id="assignViceCaptainButton" onclick="showPlayerList('viceCaptain')">Assign Vice-Captain</button>
+    </div>
+
+    <!-- Modal for Selecting Players -->
+    <div id="playerSelectionModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <h3>Select a Player</h3>
+            <ul id="playerSelectionList"></ul> <!-- List of players -->
+            <button onclick="closePlayerSelectionModal()">Cancel</button>
+        </div>
+    </div>
+
+    <!-- Leadership Display -->
+    <div id="leadershipDisplay" class="leadership-display">
+        <h3>Team Leadership</h3>
+        <p><strong>Captain:</strong> <span id="captainName">None</span></p>
+        <p><strong>Vice-Captain:</strong> <span id="viceCaptainName">None</span></p>
+    </div>
+
+    <!-- Swap Players Button -->
+    <div class="swap-buttons">
+        <button id="swapPlayersButton" onclick="showSwapModal()">Swap Players</button>
+    </div>
+
+    <!-- Modal for Selecting Players -->
+    <div id="swapModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <h3>Select Players to Swap</h3>
+            <ul id="swapPlayerList"></ul> <!-- List of players -->
+            <button onclick="closeSwapModal()">Cancel</button>
+        </div>
+    </div>
+
+</section>
+
+
+<div id="substituteBench" class="substitute-bench">
+    <h3>Substitute Bench</h3>
+    <div id="substituteButtons"></div> <!-- Buttons for substitutes -->
+</div>
+
+        </section>
+
+        <!-- Swap Modal -->
+<div id="swapModal" class="modal" style="display:none;">
+    <div class="modal-content">
+        <h3>Select a Player to Swap</h3>
+        <ul id="playerList"></ul> <!-- List of players -->
+        <button onclick="closeSwapModal()">Cancel</button>
+    </div>
+</div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        ⚽ Football Team Builder| Made by Dhruv Srijit and Swapnil Nath
+    </footer>
+
+    <!-- Link JavaScript -->
+    <script src="./app.js"></script>
+
+    <script src="./swap.js"></script>
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Match Stats</title>
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <h1>⚽ Match Stats ⚽</h1>
+        <p>Create a match and update player stats.</p>
+        <a href="./index.html" class="back-button">← Back to Team Builder</a>
+    </header>
+
+    <!-- Main Content -->
+    <main class="section">
+        <!-- Match Creation Section -->
+        <div id="createMatchContainer">
+            <h2>Create Match</h2>
+            <form id="createMatchForm" class="form">
+                <input type="text" id="matchName" placeholder="Match Name" required>
+                <input type="date" id="matchDate" required>
+                <button type="submit">Create Match</button>
+            </form>
+        </div>
+
+        <!-- Player Stats Update Section -->
+        <div id="playerStatsContainer" style="display:none;">
+            <h2>Update Player Stats</h2>
+            <div id="playerStatsList" class="player-stats-list"></div> <!-- List of players with input fields for stats -->
+            <button id="saveStatsButton" class="save-stats-button">Save Stats</button>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        ⚽ Football Team Builder | Made by Dhruv Srijit and Swapnil Nath
+    </footer>
+
+    <!-- Link JavaScript -->
+    <script src="./match-stats.js"></script>
+
+</body>
+</html>
+
