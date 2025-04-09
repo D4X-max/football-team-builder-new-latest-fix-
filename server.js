@@ -238,38 +238,45 @@ app.get('/matches/stats', (req, res) => {
 });
 //----------------------------------------------//
 
-
-// POST /swap - Swap players' positions
+//SWAPPING FUNCTION
 app.post('/swap', async (req, res) => {
     const { currentPlayerId, newPlayerId } = req.body;
 
+    if (!currentPlayerId || !newPlayerId) {
+        return res.status(400).json({ error: 'Both player IDs are required.' });
+    }
+
     try {
-        // Get positions of both players
+        // Fetch positions of both players
         const [rows] = await db.promise().query(
             'SELECT id, position FROM Players WHERE id IN (?, ?)',
             [currentPlayerId, newPlayerId]
         );
 
         if (rows.length !== 2) {
-            return res.status(404).json({ message: 'One or both players not found.' });
+            return res.status(404).json({ error: 'One or both players not found.' });
         }
 
         const currentPlayerPosition = rows.find(row => row.id === currentPlayerId).position;
         const newPlayerPosition = rows.find(row => row.id === newPlayerId).position;
 
-        // Swap positions
+        // Swap positions in the database
         await db.promise().query(
-            `UPDATE Players SET position =
-             CASE WHEN id=? THEN ? WHEN id=? THEN ? END WHERE id IN (?, ?)`,
+            `UPDATE Players SET position = CASE 
+                WHEN id = ? THEN ?
+                WHEN id = ? THEN ?
+            END WHERE id IN (?, ?)`,
             [currentPlayerId, newPlayerPosition, newPlayerId, currentPlayerPosition, currentPlayerId, newPlayerId]
         );
 
         res.json({ message: 'Players swapped successfully!' });
     } catch (error) {
         console.error('Error swapping players:', error.message);
-        res.status(500).json({ message: 'Failed to swap players.' });
+        res.status(500).json({ error: 'Failed to swap players.' });
     }
 });
+
+
 
 
 
@@ -390,6 +397,26 @@ app.listen(PORT, () => {
         exec(`xdg-open ${url}`); // Linux command
     }
 });
+
+// Dummy admin credentials
+const ADMIN_USERNAME = 'dhruvs';
+const ADMIN_PASSWORD = 'pass123';
+
+// Admin Login Route
+app.post('/admin-login', (req, res) => {
+    const { username, password } = req.body;
+
+    // Check if the provided credentials match the dummy credentials
+    if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
+        // Generate a JWT token for admin
+        const token = jwt.sign({ role: 'admin' }, SECRET_KEY, { expiresIn: '1h' });
+        return res.json({ message: 'Admin login successful!', token });
+    }
+
+    // If credentials are incorrect
+    res.status(401).json({ error: 'Invalid admin username or password.' });
+});
+
 
 
 

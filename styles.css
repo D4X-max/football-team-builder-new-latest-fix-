@@ -1184,6 +1184,21 @@ body {
 
 
 
+/* Admin Login Link Styling */
+.admin-link-container {
+    text-align: right;
+    margin: 10px 20px;
+}
+
+.admin-login-link {
+    color: #007bff; /* Blue */
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.admin-login-link:hover {
+    text-decoration: underline;
+}
 
 
 
