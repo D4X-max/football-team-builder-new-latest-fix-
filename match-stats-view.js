@@ -4,8 +4,11 @@ const API_URL = 'http://localhost:3000/matches/stats'; // Replace with your actu
 async function loadMatchStats() {
     const matchStatsContainer = document.getElementById('matchStatsContainer');
 
+    // Clear previous matches to avoid duplication
+    matchStatsContainer.innerHTML = '';
+
     try {
-        const response = await fetch(API_URL);
+        const response = await fetch('http://localhost:3000/matches/stats');
         if (!response.ok) throw new Error('Failed to fetch match stats.');
 
         const matchStats = await response.json();
@@ -21,6 +24,7 @@ async function loadMatchStats() {
                 };
             }
             matches[stat.match_id].players.push({
+                id: stat.player_id,
                 name: stat.player_name,
                 position: stat.position,
                 goals: stat.goals,
@@ -30,7 +34,7 @@ async function loadMatchStats() {
         });
 
         // Display matches and player stats
-        Object.values(matches).forEach(match => {
+        Object.entries(matches).forEach(([matchId, match]) => {
             const matchCard = document.createElement('div');
             matchCard.className = 'match-card';
 
@@ -38,12 +42,21 @@ async function loadMatchStats() {
             header.innerText = `${match.name} (${new Date(match.date).toLocaleDateString()})`;
             matchCard.appendChild(header);
 
+            // Add Delete Match Button
+            const deleteButton = document.createElement('button');
+            deleteButton.className = 'delete-match-button';
+            deleteButton.innerText = 'Delete Match';
+            deleteButton.onclick = () => deleteMatch(matchId);
+            matchCard.appendChild(deleteButton);
+
             const playerList = document.createElement('ul');
             playerList.className = 'player-stats-list';
 
             match.players.forEach(player => {
                 const listItem = document.createElement('li');
-                listItem.innerText = `${player.name} (${player.position}) - Goals: ${player.goals}, Assists: ${player.assists}, Minutes Played: ${player.minutesPlayed}`;
+                listItem.innerHTML = `
+                    ${player.name} (${player.position}) - Goals: ${player.goals}, Assists: ${player.assists}, Minutes Played: ${player.minutesPlayed}
+                `;
                 playerList.appendChild(listItem);
             });
 
@@ -55,6 +68,49 @@ async function loadMatchStats() {
         alert('Failed to load match stats. Please try again later.');
     }
 }
+
+
+// Delete an entire match
+function deleteMatch(matchId) {
+    if (confirm('Are you sure you want to delete this match? This action cannot be undone.')) {
+        fetch(`http://localhost:3000/matches/${matchId}`, {
+            method: 'DELETE',
+        })
+            .then(response => {
+                if (!response.ok) throw new Error('Failed to delete the match.');
+                alert('Match deleted successfully!');
+                loadMatchStats(); // Reload the updated stats
+            })
+            .catch(error => console.error('Error deleting the match:', error));
+    }
+}
+
+// Edit player stats
+function editPlayerStat(playerId, matchId) {
+    const newGoals = prompt('Enter new goals:', 0);
+    const newAssists = prompt('Enter new assists:', 0);
+    const newMinutesPlayed = prompt('Enter new minutes played:', 0);
+
+    if (newGoals !== null && newAssists !== null && newMinutesPlayed !== null) {
+        fetch(`http://localhost:3000/stats/${playerId}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                goals: parseInt(newGoals),
+                assists: parseInt(newAssists),
+                minutesPlayed: parseInt(newMinutesPlayed),
+                matchId,
+            }),
+        })
+            .then(response => {
+                if (!response.ok) throw new Error('Failed to update player stats.');
+                alert('Player stats updated successfully!');
+                loadMatchStats(); // Reload the updated stats
+            })
+            .catch(error => console.error('Error updating player stats:', error));
+    }
+}
+
 
 // Change background color based on scroll position
 document.addEventListener('scroll', () => {
@@ -78,3 +134,4 @@ document.addEventListener('scroll', () => {
 
 // Load match stats on page load
 document.addEventListener('DOMContentLoaded', loadMatchStats);
+

@@ -51,6 +51,75 @@ app.post('/matches', (req, res) => {
     );
 });
 
+//---------------------------------------EDITING AND DELETING COLUMN-----------------------------------------------//
+app.put('/stats/:id', (req, res) => {
+    const { id } = req.params;
+    const { goals, assists, minutesPlayed, matchId } = req.body;
+
+    db.query(
+        'UPDATE PlayerStats SET goals = ?, assists = ?, minutes_played = ? WHERE player_id = ? AND match_id = ?',
+        [goals, assists, minutesPlayed, id, matchId],
+        (err) => {
+            if (err) {
+                console.error('Error updating player stats:', err.message);
+                return res.status(500).json({ error: 'Failed to update player stats.' });
+            }
+            res.json({ message: 'Player stats updated successfully!' });
+        }
+    );
+});
+
+app.delete('/stats/:id', (req, res) => {
+    const { id } = req.params;
+
+    db.query(
+        'DELETE FROM PlayerStats WHERE player_id = ?',
+        [id],
+        (err) => {
+            if (err) {
+                console.error('Error deleting player stat:', err.message);
+                return res.status(500).json({ error: 'Failed to delete player stat.' });
+            }
+            res.json({ message: 'Player stat deleted successfully!' });
+        }
+    );
+});
+
+app.delete('/matches/:id', (req, res) => {
+    const { id } = req.params;
+
+    // Delete associated player stats first (to maintain database integrity)
+    db.query(
+        'DELETE FROM PlayerStats WHERE match_id = ?',
+        [id],
+        (err) => {
+            if (err) {
+                console.error('Error deleting player stats:', err.message);
+                return res.status(500).json({ error: 'Failed to delete player stats.' });
+            }
+
+            // Then delete the match itself
+            db.query(
+                'DELETE FROM Matches WHERE id = ?',
+                [id],
+                (err) => {
+                    if (err) {
+                        console.error('Error deleting the match:', err.message);
+                        return res.status(500).json({ error: 'Failed to delete the match.' });
+                    }
+
+                    res.json({ message: 'Match deleted successfully!' });
+                }
+            );
+        }
+    );
+});
+
+
+
+
+//--------------------------------------------------------------------------------------------------//
+
 app.post('/stats', (req, res) => {
     const statsData = req.body;
 

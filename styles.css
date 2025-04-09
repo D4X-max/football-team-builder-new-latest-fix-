@@ -1143,6 +1143,46 @@ body {
     transform: scale(1.05); /* Slightly enlarge the image on hover */
 }
 
+.edit-button,
+.delete-button {
+    margin-left: 10px;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.edit-button {
+    background-color: #ffc107; /* Yellow */
+    color: black;
+}
+
+.edit-button:hover {
+    background-color: #e0a800; /* Darker yellow */
+}
+
+.delete-button {
+    background-color: #dc3545; /* Red */
+    color: white;
+}
+
+.delete-button:hover {
+    background-color: #c82333; /* Darker red */
+}
+
+/* Delete Match Button */
+.delete-match-button {
+    margin-top: 10px;
+    padding: 10px 15px;
+    background-color: #dc3545; /* Red */
+    color: white;
+    border-radius: 5px;
+    border: none;
+}
+
+.delete-match-button:hover {
+    background-color: #c82333; /* Darker red */
+}
+
+
 
 
 
