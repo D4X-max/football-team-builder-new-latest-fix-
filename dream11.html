@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dream Team</title>
+    <title>Dream Team Builder</title>
     <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
 
     <!-- Header -->
     <header class="header">
-        <h1>⚽ Dream Team ⚽</h1>
+        <h1>⚽ Dream Team Builder ⚽</h1>
         <p>Build your dream football team with players from around the world!</p>
         <a href="./index.html" class="back-button">← Back to Team Builder</a>
     </header>
@@ -18,15 +18,15 @@
     <!-- Main Content -->
     <main class="section">
         <!-- Player List Section -->
-        <div id="playerListContainer">
+        <div id="playerListContainer" class="player-list-container">
             <h2>Available Players</h2>
-            <ul id="playerList"></ul> <!-- List of players -->
+            <div id="playerList" class="player-list"></div> <!-- List of player cards -->
         </div>
 
-        <!-- Dream Team Section -->
-        <div id="dreamTeamContainer">
-            <h2>Your Dream Team</h2>
-            <ul id="dreamTeam"></ul> <!-- Selected players -->
+        <!-- Formation Section -->
+        <div id="formationContainer" class="formation-container">
+            <h2>Your Dream Team Formation</h2>
+            <div id="formationGrid" class="formation-grid"></div> <!-- Formation grid -->
         </div>
     </main>
 
@@ -37,5 +37,7 @@
 
     <!-- Link JavaScript -->
     <script src="./dream11.js"></script>
+
 </body>
 </html>
+

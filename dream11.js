@@ -1,30 +1,34 @@
-const API_FOOTBALL_URL = 'https://v3.football.api-sports.io/players/profiles';
-const RAPIDAPI_KEY = 'ebe8c831197308ae3201bacac8c1233c'; // Replace with your actual API key
+const API_URL = 'https://v3.football.api-sports.io/players'; // Replace with your actual API URL
+const API_KEY = 'ebe8c831197308ae3201bacac8c1233c'; // Replace with your actual API key
 
-// Fetch player profiles from the API
-async function fetchPlayerProfiles() {
+// Fetch players from the API
+async function fetchPlayersFromAPI() {
     try {
-        const response = await fetch(`${API_FOOTBALL_URL}?player=276`, {
+        const response = await fetch(`${API_URL}?league=39&season=2023`, {
             method: 'GET',
             headers: {
                 'x-rapidapi-host': 'v3.football.api-sports.io',
-                'x-rapidapi-key': RAPIDAPI_KEY,
+                'x-rapidapi-key': API_KEY,
             },
         });
 
-        if (!response.ok) throw new Error('Failed to fetch player profiles.');
+        if (!response.ok) throw new Error('Failed to fetch players.');
 
         const data = await response.json();
-        displayPlayers(data.response); // Pass player data to display function
+
+        // Pass all players to display function
+        displayPlayers(data.response);
     } catch (error) {
-        console.error('Error fetching player profiles:', error);
-        alert('Failed to load player profiles. Please try again later.');
+        console.error('Error fetching players:', error);
+        alert('Failed to fetch players. Please try again later.');
     }
 }
 
-// Display players in the Dream11 page
+// Display players in the Dream Team page
 function displayPlayers(players) {
     const playerListContainer = document.getElementById('playerList');
+
+    playerListContainer.innerHTML = ''; // Clear previous list
 
     players.forEach(playerData => {
         const player = playerData.player;
@@ -40,7 +44,7 @@ function displayPlayers(players) {
     });
 }
 
-// Add a player to the dream team
+// Add a player to the Dream Team
 function addToDreamTeam(playerName) {
     const dreamTeamContainer = document.getElementById('dreamTeam');
 
@@ -55,5 +59,5 @@ function addToDreamTeam(playerName) {
 }
 
 // Load players on page load
-document.addEventListener('DOMContentLoaded', fetchPlayerProfiles);
+document.addEventListener('DOMContentLoaded', fetchPlayersFromAPI);
 
