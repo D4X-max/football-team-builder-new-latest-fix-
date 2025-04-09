@@ -1199,6 +1199,20 @@ body {
 .admin-login-link:hover {
     text-decoration: underline;
 }
+/* Logout Button Styling */
+.logout-button {
+    padding: 10px 20px;
+    background-color: #dc3545; /* Red */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.logout-button:hover {
+    background-color: #c82333; /* Darker red */
+}
 
 
 

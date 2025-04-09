@@ -502,6 +502,15 @@ function swapPlayers(player1, player2) {
         .catch(error => console.error('Error swapping players:', error));
 }
 
+// Handle Logout Button Click
+document.getElementById('logoutButton').addEventListener('click', () => {
+    // Clear user session data (e.g., JWT token)
+    localStorage.removeItem('token'); // Remove token from localStorage
+    sessionStorage.clear(); // Clear session storage if used
+
+    // Redirect to user login page
+    window.location.href = 'file:///C:/Users/user/Documents/SQL/Mini-Projects-main-main/Mini-Projects-main-main/Mini-Projects-main/football-team-builder/user-login.html';
+});
 
 
 
