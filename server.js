@@ -50,70 +50,61 @@ app.post('/matches', (req, res) => {
         }
     );
 });
-
-//---------------------------------------EDITING AND DELETING COLUMN-----------------------------------------------//
-app.put('/stats/:id', (req, res) => {
-    const { id } = req.params;
-    const { goals, assists, minutesPlayed, matchId } = req.body;
-
-    db.query(
-        'UPDATE PlayerStats SET goals = ?, assists = ?, minutes_played = ? WHERE player_id = ? AND match_id = ?',
-        [goals, assists, minutesPlayed, id, matchId],
-        (err) => {
-            if (err) {
-                console.error('Error updating player stats:', err.message);
-                return res.status(500).json({ error: 'Failed to update player stats.' });
-            }
-            res.json({ message: 'Player stats updated successfully!' });
-        }
-    );
-});
-
-app.delete('/stats/:id', (req, res) => {
+// DELETE /players/:id - Delete a player by ID
+app.delete('/players/:id', (req, res) => {
     const { id } = req.params;
 
-    db.query(
-        'DELETE FROM PlayerStats WHERE player_id = ?',
-        [id],
-        (err) => {
-            if (err) {
-                console.error('Error deleting player stat:', err.message);
-                return res.status(500).json({ error: 'Failed to delete player stat.' });
-            }
-            res.json({ message: 'Player stat deleted successfully!' });
+    if (!id) {
+        return res.status(400).json({ error: 'Player ID is required.' });
+    }
+
+    db.query('DELETE FROM Players WHERE id = ?', [id], (err, results) => {
+        if (err) {
+            console.error('Error deleting player:', err.message);
+            return res.status(500).json({ error: 'Failed to delete player.' });
         }
-    );
+
+        if (results.affectedRows === 0) {
+            return res.status(404).json({ error: 'Player not found.' });
+        }
+
+        res.json({ message: 'Player deleted successfully!' });
+    });
 });
 
+
+// DELETE /matches/:id - Delete a match by ID
+// DELETE /matches/:id - Delete a match by ID
 app.delete('/matches/:id', (req, res) => {
     const { id } = req.params;
 
-    // Delete associated player stats first (to maintain database integrity)
-    db.query(
-        'DELETE FROM PlayerStats WHERE match_id = ?',
-        [id],
-        (err) => {
+    if (!id) {
+        return res.status(400).json({ error: 'Match ID is required.' });
+    }
+
+    // First, delete associated player stats for the match
+    db.query('DELETE FROM PlayerStats WHERE match_id = ?', [id], (err) => {
+        if (err) {
+            console.error('Error deleting player stats for match:', err.message);
+            return res.status(500).json({ error: 'Failed to delete player stats for the match.' });
+        }
+
+        // Then, delete the match itself
+        db.query('DELETE FROM Matches WHERE id = ?', [id], (err, results) => {
             if (err) {
-                console.error('Error deleting player stats:', err.message);
-                return res.status(500).json({ error: 'Failed to delete player stats.' });
+                console.error('Error deleting match:', err.message);
+                return res.status(500).json({ error: 'Failed to delete match.' });
             }
 
-            // Then delete the match itself
-            db.query(
-                'DELETE FROM Matches WHERE id = ?',
-                [id],
-                (err) => {
-                    if (err) {
-                        console.error('Error deleting the match:', err.message);
-                        return res.status(500).json({ error: 'Failed to delete the match.' });
-                    }
+            if (results.affectedRows === 0) {
+                return res.status(404).json({ error: 'Match not found.' });
+            }
 
-                    res.json({ message: 'Match deleted successfully!' });
-                }
-            );
-        }
-    );
+            res.json({ message: 'Match and associated stats deleted successfully!' });
+        });
+    });
 });
+
 
 
 
@@ -174,20 +165,36 @@ app.get('/matches/stats', (req, res) => {
 //----------------------------------------------//
 
 
-app.post('/swap', (req, res) => {
+// POST /swap - Swap players' positions
+app.post('/swap', async (req, res) => {
     const { currentPlayerId, newPlayerId } = req.body;
 
-    db.query(
-        `UPDATE Players SET position =
-         CASE WHEN id=? THEN (SELECT position FROM Players WHERE id=?)
-              WHEN id=? THEN (SELECT position FROM Players WHERE id=?) END 
-         WHERE id IN (?, ?)`,
-         [currentPlayerId, newPlayerId, newPlayerId, currentPlayerId, currentPlayerId, newPlayerId],
-         (err) => {
-             if (err) return res.status(500).json({ message: 'Failed to swap players.' });
-             res.json({ message: 'Players swapped successfully!' });
-         }
-     );
+    try {
+        // Get positions of both players
+        const [rows] = await db.promise().query(
+            'SELECT id, position FROM Players WHERE id IN (?, ?)',
+            [currentPlayerId, newPlayerId]
+        );
+
+        if (rows.length !== 2) {
+            return res.status(404).json({ message: 'One or both players not found.' });
+        }
+
+        const currentPlayerPosition = rows.find(row => row.id === currentPlayerId).position;
+        const newPlayerPosition = rows.find(row => row.id === newPlayerId).position;
+
+        // Swap positions
+        await db.promise().query(
+            `UPDATE Players SET position =
+             CASE WHEN id=? THEN ? WHEN id=? THEN ? END WHERE id IN (?, ?)`,
+            [currentPlayerId, newPlayerPosition, newPlayerId, currentPlayerPosition, currentPlayerId, newPlayerId]
+        );
+
+        res.json({ message: 'Players swapped successfully!' });
+    } catch (error) {
+        console.error('Error swapping players:', error.message);
+        res.status(500).json({ message: 'Failed to swap players.' });
+    }
 });
 
 
@@ -267,23 +274,28 @@ app.put('/players/:id', (req, res) => {
 });
 
 
-// DELETE a player by ID
+// DELETE /players/:id - Delete a player by ID
 app.delete('/players/:id', (req, res) => {
     const { id } = req.params;
 
-    db.query('DELETE FROM Players WHERE id = ?', [id], (err) => {
+    if (!id) {
+        return res.status(400).json({ error: 'Player ID is required.' });
+    }
+
+    db.query('DELETE FROM Players WHERE id = ?', [id], (err, results) => {
         if (err) {
-            console.error('❌ Error deleting player:', err.message);
+            console.error('Error deleting player:', err.message);
             return res.status(500).json({ error: 'Failed to delete player.' });
         }
+
+        if (results.affectedRows === 0) {
+            return res.status(404).json({ error: 'Player not found.' });
+        }
+
         res.json({ message: 'Player deleted successfully!' });
     });
 });
 
-// Handle 404 errors for undefined routes
-app.use((req, res) => {
-    res.status(404).json({ error: 'Endpoint not found.' });
-});
 
 
 

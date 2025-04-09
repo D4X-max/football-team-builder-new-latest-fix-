@@ -1,115 +1,71 @@
-const API_URL = 'http://localhost:3000/matches/stats'; // Replace with your actual backend URL
+const MATCH_API_URL = 'http://localhost:3000/matches'; // Replace with your backend URL
 
-// Fetch matches and player stats from the backend
+// Fetch and display all matches with stats
 async function loadMatchStats() {
     const matchStatsContainer = document.getElementById('matchStatsContainer');
 
-    // Clear previous matches to avoid duplication
-    matchStatsContainer.innerHTML = '';
-
     try {
-        const response = await fetch('http://localhost:3000/matches/stats');
+        const response = await fetch(`${MATCH_API_URL}/stats`);
         if (!response.ok) throw new Error('Failed to fetch match stats.');
 
-        const matchStats = await response.json();
+        const matches = await response.json();
 
-        // Group player stats by match
-        const matches = {};
-        matchStats.forEach(stat => {
-            if (!matches[stat.match_id]) {
-                matches[stat.match_id] = {
-                    name: stat.match_name,
-                    date: stat.match_date,
-                    players: [],
-                };
+        // Group matches by ID
+        const groupedMatches = {};
+        matches.forEach(match => {
+            if (!groupedMatches[match.match_id]) {
+                groupedMatches[match.match_id] = { ...match, players: [] };
             }
-            matches[stat.match_id].players.push({
-                id: stat.player_id,
-                name: stat.player_name,
-                position: stat.position,
-                goals: stat.goals,
-                assists: stat.assists,
-                minutesPlayed: stat.minutes_played,
-            });
+            groupedMatches[match.match_id].players.push(match);
         });
 
-        // Display matches and player stats
-        Object.entries(matches).forEach(([matchId, match]) => {
+        // Render matches and their stats
+        matchStatsContainer.innerHTML = '';
+        
+        Object.values(groupedMatches).forEach(match => {
             const matchCard = document.createElement('div');
             matchCard.className = 'match-card';
+            
+            matchCard.innerHTML = `
+                <h3>${match.match_name} (${new Date(match.match_date).toLocaleDateString()})</h3>
+                <ul class="player-stats-list">
+                    ${match.players.map(player => `
+                        <li>${player.player_name} (${player.position}) - Goals: ${player.goals}, Assists: ${player.assists}, Minutes Played: ${player.minutes_played}</li>
+                    `).join('')}
+                </ul>
+                <button class="delete-button" onclick="deleteMatch(${match.match_id})">Delete Match</button>
+            `;
 
-            const header = document.createElement('h3');
-            header.innerText = `${match.name} (${new Date(match.date).toLocaleDateString()})`;
-            matchCard.appendChild(header);
-
-            // Add Delete Match Button
-            const deleteButton = document.createElement('button');
-            deleteButton.className = 'delete-match-button';
-            deleteButton.innerText = 'Delete Match';
-            deleteButton.onclick = () => deleteMatch(matchId);
-            matchCard.appendChild(deleteButton);
-
-            const playerList = document.createElement('ul');
-            playerList.className = 'player-stats-list';
-
-            match.players.forEach(player => {
-                const listItem = document.createElement('li');
-                listItem.innerHTML = `
-                    ${player.name} (${player.position}) - Goals: ${player.goals}, Assists: ${player.assists}, Minutes Played: ${player.minutesPlayed}
-                `;
-                playerList.appendChild(listItem);
-            });
-
-            matchCard.appendChild(playerList);
             matchStatsContainer.appendChild(matchCard);
         });
     } catch (error) {
         console.error('Error loading match stats:', error);
-        alert('Failed to load match stats. Please try again later.');
+        alert('Failed to load match stats. Please try again.');
     }
 }
 
-
-// Delete an entire match
-function deleteMatch(matchId) {
-    if (confirm('Are you sure you want to delete this match? This action cannot be undone.')) {
-        fetch(`http://localhost:3000/matches/${matchId}`, {
+// Delete a match by ID
+async function deleteMatch(matchId) {
+    try {
+        const response = await fetch(`${MATCH_API_URL}/${matchId}`, {
             method: 'DELETE',
-        })
-            .then(response => {
-                if (!response.ok) throw new Error('Failed to delete the match.');
-                alert('Match deleted successfully!');
-                loadMatchStats(); // Reload the updated stats
-            })
-            .catch(error => console.error('Error deleting the match:', error));
+        });
+
+        if (!response.ok) throw new Error('Failed to delete match.');
+
+        alert('Match deleted successfully!');
+        
+        // Refresh the match list after deletion
+        loadMatchStats();
+    } catch (error) {
+        console.error('Error deleting match:', error);
+        alert('Failed to delete match. Please try again.');
     }
 }
 
-// Edit player stats
-function editPlayerStat(playerId, matchId) {
-    const newGoals = prompt('Enter new goals:', 0);
-    const newAssists = prompt('Enter new assists:', 0);
-    const newMinutesPlayed = prompt('Enter new minutes played:', 0);
+// Load matches on page load
+document.addEventListener('DOMContentLoaded', loadMatchStats);
 
-    if (newGoals !== null && newAssists !== null && newMinutesPlayed !== null) {
-        fetch(`http://localhost:3000/stats/${playerId}`, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                goals: parseInt(newGoals),
-                assists: parseInt(newAssists),
-                minutesPlayed: parseInt(newMinutesPlayed),
-                matchId,
-            }),
-        })
-            .then(response => {
-                if (!response.ok) throw new Error('Failed to update player stats.');
-                alert('Player stats updated successfully!');
-                loadMatchStats(); // Reload the updated stats
-            })
-            .catch(error => console.error('Error updating player stats:', error));
-    }
-}
 
 
 // Change background color based on scroll position
@@ -132,6 +88,5 @@ document.addEventListener('scroll', () => {
 
 
 
-// Load match stats on page load
-document.addEventListener('DOMContentLoaded', loadMatchStats);
+
 
