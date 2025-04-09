@@ -3,8 +3,13 @@ const express = require('express');
 const mysql = require('mysql2');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 const app = express();
+const path = require('path');
+const { exec } = require('child_process');
+
+
 app.use(bodyParser.json());
 app.use(cors());
 
@@ -14,7 +19,76 @@ const db = mysql.createConnection({
     user: 'root', // Replace with your MySQL username
     password: '', // Replace with your MySQL password
     database: 'FootballTeamDB' // Replace with your database name
+}); 
+
+//--------------------------------------------------//
+// Secret key for JWT
+const SECRET_KEY = 'your_secret_key';
+
+// POST /register - Register a new user
+app.post('/register', async (req, res) => {
+    const { username, password } = req.body;
+
+    if (!username || !password) {
+        return res.status(400).json({ error: 'Username and password are required.' });
+    }
+
+    try {
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        db.query(
+            'INSERT INTO Users (username, password, role) VALUES (?, ?, "user")',
+            [username, hashedPassword],
+            (err) => {
+                if (err) {
+                    console.error('Error registering user:', err.message);
+                    return res.status(500).json({ error: 'Failed to register user.' });
+                }
+                res.json({ message: 'User registered successfully!' });
+            }
+        );
+    } catch (error) {
+        console.error('Error hashing password:', error);
+        res.status(500).json({ error: 'Internal server error.' });
+    }
 });
+
+// POST /login - Authenticate a user or admin
+app.post('/login', (req, res) => {
+    const { username, password } = req.body;
+
+    if (!username || !password) {
+        return res.status(400).json({ error: 'Username and password are required.' });
+    }
+
+    db.query(
+        'SELECT * FROM Users WHERE username = ?',
+        [username],
+        async (err, results) => {
+            if (err) {
+                console.error('Error fetching user:', err.message);
+                return res.status(500).json({ error: 'Failed to fetch user.' });
+            }
+
+            if (results.length === 0) {
+                return res.status(401).json({ error: 'Invalid username or password.' });
+            }
+
+            const user = results[0];
+            const isPasswordValid = await bcrypt.compare(password, user.password);
+
+            if (!isPasswordValid) {
+                return res.status(401).json({ error: 'Invalid username or password.' });
+            }
+
+            const token = jwt.sign({ id: user.id, role: user.role }, SECRET_KEY, { expiresIn: '1h' });
+
+            res.json({ message: 'Login successful!', token, role: user.role });
+        }
+    );
+});
+
+//-------------------------------------------------------------------//
 
 app.get('/', (req, res) => {
     res.send('Welcome to the Football Team API!');
@@ -295,6 +369,28 @@ app.delete('/players/:id', (req, res) => {
         res.json({ message: 'Player deleted successfully!' });
     });
 });
+
+// Serve static files from the "public" directory
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Start the server and open the user-login.html page in the browser
+app.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`);
+
+    // Open the user-login.html page in the default browser
+    const url = `file:///C:/Users/user/Documents/SQL/Mini-Projects-main-main/Mini-Projects-main-main/Mini-Projects-main/football-team-builder/user-login.html`;
+
+    // Use platform-specific commands to open the browser
+    const platform = process.platform;
+    if (platform === 'win32') {
+        exec(`start ${url}`); // Windows command
+    } else if (platform === 'darwin') {
+        exec(`open ${url}`); // macOS command
+    } else if (platform === 'linux') {
+        exec(`xdg-open ${url}`); // Linux command
+    }
+});
+
 
 
 
