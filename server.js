@@ -408,9 +408,7 @@ app.post('/admin-login', (req, res) => {
 
     // Check if the provided credentials match the dummy credentials
     if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
-        // Generate a JWT token for admin
-        const token = jwt.sign({ role: 'admin' }, SECRET_KEY, { expiresIn: '1h' });
-        return res.json({ message: 'Admin login successful!', token });
+        return res.json({ message: 'Admin login successful!' });
     }
 
     // If credentials are incorrect
@@ -418,6 +416,38 @@ app.post('/admin-login', (req, res) => {
 });
 
 
+/// admin dashboard
+app.get('/users', (req, res) => {
+    db.query('SELECT id, username, role, created_at FROM Users', (err, results) => {
+        if (err) {
+            console.error('Error fetching users:', err.message);
+            return res.status(500).json({ error: 'Failed to fetch users.' });
+        }
+
+        res.json(results);
+    });
+});
+
+app.delete('/users/:id', (req, res) => {
+    const { id } = req.params;
+
+    if (!id) {
+        return res.status(400).json({ error: 'User ID is required.' });
+    }
+
+    db.query('DELETE FROM Users WHERE id = ?', [id], (err, results) => {
+        if (err) {
+            console.error('Error deleting user:', err.message);
+            return res.status(500).json({ error: 'Failed to delete user.' });
+        }
+
+        if (results.affectedRows === 0) {
+            return res.status(404).json({ error: 'User not found.' });
+        }
+
+        res.json({ message: 'User deleted successfully!' });
+    });
+});
 
 
 
